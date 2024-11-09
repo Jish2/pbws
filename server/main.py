@@ -1,6 +1,7 @@
 import asyncio
 from websockets.asyncio.server import serve
 from json import dumps, loads
+from mocker.mocker import mock_users
 
 # from generated.protos import chat_message_pb2 as ChatMessage
 
@@ -29,6 +30,7 @@ async def handler(websocket):
 
 
 async def main():
+    asyncio.create_task(mock_users(broadcast))
     async with serve(handler, "", 8001):
         await asyncio.get_running_loop().create_future()  # run forever
 
